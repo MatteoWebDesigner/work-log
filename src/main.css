@@ -19,3 +19,7 @@ body {
         height: 64px
     }
 }
+
+.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+    color: var(--mdc-theme-primary) !important;
+}
