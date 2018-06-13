@@ -2,8 +2,6 @@ let database = new Promise((resolve, reject) => {
     let connection = window.indexedDB.open("records");
 
     connection.onsuccess = function(event) {
-        console.log("onsuccess", event.target.result);
-
         let connection = event.target.result;
 
         resolve(connection);
@@ -14,13 +12,13 @@ let database = new Promise((resolve, reject) => {
     }
     
     connection.onupgradeneeded = function(event) {
-        console.log("onupgradeneeded", event.target.result);
-
         let connection = event.target.result;
 
-        resolve(connection);
-    
-        connection.createObjectStore("records", { keyPath: "id", autoIncrement: true });
+        let objectStore = connection.createObjectStore("records", { keyPath: "id", autoIncrement: true });
+
+        objectStore.transaction.oncomplete = function(event) {
+            resolve(connection);
+        };
     }
 
 });
