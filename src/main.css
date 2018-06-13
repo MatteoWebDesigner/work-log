@@ -1,0 +1,21 @@
+@import url("./components/App/App.css");
+
+:root {
+    --mdc-theme-primary: #f44336 !important;
+}
+
+body {
+    color: #f44336;
+    font-family: Roboto, sans-serif;
+}
+
+/* add height placeholder */
+.mdc-toolbar-wrapper {
+    height: 56px;
+}
+
+@media (min-width: 600px) {
+    .mdc-toolbar-wrapper {
+        height: 64px
+    }
+}

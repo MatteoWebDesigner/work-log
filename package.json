@@ -1,0 +1,29 @@
+{
+  "name": "work-log",
+  "version": "0.1.0",
+  "description": "you can record your time spent working",
+  "author": "MatteoWebDesigner <matteowebdesigner@googlemail.com>",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MatteoWebDesigner/work-log.git"
+  },
+  "scripts": {
+    "postinstall": "npm run build",
+    "dev": "npm run build && npm run serve",
+    "serve": "PORT=8080 node server.js",
+    "build": "cp -R src/ dist/"
+  },
+  "dependencies": {
+    "compression": "1.7.2",
+    "express": "4.16.3"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": "8.9.4",
+    "npm": "5.6.0"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ]
+}
