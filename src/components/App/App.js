@@ -6,7 +6,7 @@ let template = `
         </mdc-toolbar>
         
         <main class="App_main-content">
-            <h2>Add a record</h2>
+            <h2 class="App_title">Add a record</h2>
             
             <form class="App_form" @submit.prevent="" novalidate>
                 <mdc-textfield v-model="date" label="date" />
@@ -16,10 +16,17 @@ let template = `
                 <mdc-button @click="onSubmit" raised :disabled="!isFormValid">log new time</mdc-button>
             </form>
 
-            <h2>Records</h2>
+            <h2 class="App_title">Records</h2>
 
             <ul v-for="record in records">
-                <li>{{ record.label }}</li>
+                <li>
+                    {{ record.date }} -
+                    {{ record.timeStart }} -
+                    {{ record.timeEnd }} -
+                    {{ record.label }} 
+
+                    <button @click="deleteLog(record.id)">x</button>
+                </li>
             </ul>
 
             <p v-if="!records.length">No items saved</p>
@@ -28,7 +35,7 @@ let template = `
     </mdc-layout-app>
 `;
 
-import database from "/services/database.js";
+const { mapActions, mapGetters } = Vuex;
 
 export default Vue.component('App', {
     data() {
@@ -36,37 +43,45 @@ export default Vue.component('App', {
             timeStart: "",
             timeEnd: "",
             label: "",
-            date: "",
-            records: []
+            date: ""
         }
     },
     computed: {
-        isFormValid() {
-            return true;
+        ...mapGetters({
+            records: 'getRecordsCollection'
+        }),
 
-            // return (
-            //     this.timeStart !== "" &&
-            //     this.timeEnd !== "" &&
-            //     this.label !== ""
-            // )
-        }
+        isFormValid() {
+            return (
+                this.timeStart !== "" &&
+                this.timeEnd !== "" &&
+                this.label !== ""
+            )
+        }  
     },
     mounted() {
-        database.getRecords().then((records) => {
-            this.records = records;
-        });
+        this.retrieveSavedRecords();
     },
     methods: {
+        ...mapActions({
+            retrieveSavedRecords: 'retrieveSavedRecords',
+            addRecord: 'addRecord',
+            deleteRecord: 'deleteRecord'
+        }),
+
         onSubmit() {
             if (!this.isFormValid) {
                 return;
             }
 
-            database.addRecord({
+            this.addRecord({
+                date: this.date,
                 timeStart: this.timeStart,
                 timeEnd: this.timeEnd,
                 label: this.label
-            })
+            });
+
+            this.clearFields();
         },
 
         clearFields() {
@@ -74,6 +89,10 @@ export default Vue.component('App', {
             this.timeEnd = "";
             this.label = "";
             this.date = "";
+        },
+
+        deleteLog(id) {
+            this.deleteRecord(id);
         }
     },
     template

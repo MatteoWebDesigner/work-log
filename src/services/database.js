@@ -35,18 +35,31 @@ function handleConnectionOnUpgradeneeded() {
 
 }
 
-function addRecord({ timeStart, timeEnd, label }) {
-    database.then((connection) => {
+function addRecord({ date, timeStart, timeEnd, label }) {
+    return database.then((connection) => {
         
         let transaction = connection.transaction(["records"], "readwrite");
 
         let recordsObjectStore = transaction.objectStore("records");
 
         recordsObjectStore.add({
+            date,
             timeStart,
             timeEnd,
             label
         });
+
+    });
+}
+
+function deleteRecord(id) {
+    return database.then((connection) => {
+        
+        let transaction = connection.transaction(["records"], "readwrite");
+
+        let recordsObjectStore = transaction.objectStore("records");
+
+        recordsObjectStore.delete(id);
 
     });
 }
@@ -82,5 +95,6 @@ function getRecords() {
 export default { 
     database,
     addRecord, 
+    deleteRecord,
     getRecords 
 };

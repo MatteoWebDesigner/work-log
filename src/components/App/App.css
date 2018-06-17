@@ -2,15 +2,23 @@
     padding: 0 30px;
 }
 
+.App_title {
+    margin: 30px 0 20px 0;
+}
+
 .App_form {
     display: grid;
+    grid-gap: 30px;
 }
 
 @media (min-width: 600px) {
     .App_form {
         display: grid;
-        grid-gap: 30px;
         grid-auto-flow: column;
         align-items: flex-end;
     }
+}
+
+.App_form .mdc-text-field {
+    margin: 0 !important;
 }
