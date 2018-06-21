@@ -13,3 +13,7 @@ let vm = new Vue({
 window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js');
 });
+
+window.addEventListener("beforeinstallprompt", function(event) { 
+    event.prompt();
+});
