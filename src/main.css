@@ -1,4 +1,5 @@
 @import url("./components/App/App.css");
+@import url("./components/DatePicker/DatePicker.css");
 
 :root {
     --mdc-theme-primary: #f44336 !important;
@@ -21,4 +22,8 @@ body {
 
 .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
     color: var(--mdc-theme-primary) !important;
+}
+
+.mdc-text-field--with-trailing-icon .mdc-text-field__input {
+    padding-left: 0 !important;
 }
