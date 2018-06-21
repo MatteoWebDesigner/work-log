@@ -15,7 +15,7 @@ export default {
             timeEnd, 
             label 
         }) {
-            Vue.set(state.records, recordIDIncrement, { date, timeStart, timeEnd, label })
+            Vue.set(state.records, recordIDIncrement, { id: recordIDIncrement, date, timeStart, timeEnd, label })
             state.recordsOrder.push(recordIDIncrement);
 
             recordIDIncrement += 1;
@@ -27,7 +27,6 @@ export default {
         },
 
         ["RETRIEVE_SAVED_RECORDS"](state, records) {
-            
             records.forEach(({ 
                 id, 
                 date, 
@@ -39,7 +38,10 @@ export default {
                 state.recordsOrder.push(id);
             });
 
-            recordIDIncrement = Math.max(...state.recordsOrder);
+            if (state.recordsOrder.length) {
+                recordIDIncrement = Math.max(...state.recordsOrder);
+            }
+            
             state.retrievedRecords = true;
         }
     },
@@ -70,7 +72,7 @@ export default {
                 });
         },
 
-        retrieveSavedRecords({ commit }) {
+        retrieveSavedRecords({ state, commit }) {
 
             return database.getRecords()
                 .then((records) => {
