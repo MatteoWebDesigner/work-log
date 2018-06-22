@@ -26,3 +26,13 @@
 .App_form .mdc-text-field {
     margin: 0 !important;
 }
+
+.App_add-recond-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.App_list {
+    list-style: none;
+    padding: 0;
+}

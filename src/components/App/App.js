@@ -12,33 +12,51 @@ let template = `
             <h2 class="App_title">Add a record</h2>
             
             <form class="App_form" @submit.prevent="" novalidate>
-                <date-picker v-model="date" type="date" label="date"/>
+                <date-picker v-model="date" :value="date" type="date" label="date"/>
 
-                <date-picker v-model="timeStart" type="time" label="time start"/>
+                <date-picker v-model="timeStart" :value="timeStart" type="time" label="time start"/>
 
-                <date-picker v-model="timeEnd" type="time" label="time end"/>
+                <date-picker v-model="timeEnd" :value="timeEnd" type="time" label="time end"/>
 
                 <mdc-textfield v-model="label" label="label" />
 
-                <mdc-button 
-                    raised 
-                    :disabled="!isFormValid"
-                    @click="onSubmit"
-                >
-                    log new time
-                </mdc-button>
+                <div class="App_add-recond-buttons">
+                    <mdc-button @click="clearFields">
+                        clear
+                    </mdc-button>
+
+                    <mdc-button 
+                        raised 
+                        :disabled="!isFormValid"
+                        @click="onSubmit"
+                    >
+                        log new time
+                    </mdc-button>
+                </div>
             </form>
 
             <h2 class="App_title">Records</h2>
 
-            <ul v-for="record in records">
+            <ul class="App_list" v-for="record in records">
                 <li>
-                    {{ record.date }} -
-                    {{ record.timeStart }} -
-                    {{ record.timeEnd }} -
-                    {{ record.label }} 
+                    <mdc-card>
+                        <mdc-card-header
+                            :title="record.date + ' ' + record.label">
+                        </mdc-card-header>
 
-                    <button @click="deleteLog(record.id)">x</button>
+                        <mdc-card-text> {{ record.timeStart }} - {{ record.timeEnd }} </mdc-card-text>
+
+                        <mdc-card-actions>
+                            <mdc-card-action-icons>
+
+                                <mdc-card-action-icon 
+                                    icon="delete" 
+                                    @click="deleteLog(record.id)"
+                                />
+
+                            </mdc-card-action-icons>
+                        </mdc-card-actions>
+                    </mdc-card>
                 </li>
             </ul>
 

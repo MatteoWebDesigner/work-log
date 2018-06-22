@@ -7,7 +7,7 @@ let template = `
         }"
     >
         <mdc-textfield 
-            v-model="date" 
+            v-model="dateNativeInput" 
             :label="label" 
             :trailing-icon="icon"
         />
@@ -37,13 +37,16 @@ let template = `
 export default Vue.component('DatePicker', {
     props: {
         type: { default: "date" },
+        value: { default: "" },
         label: {}
     },
+
     data() {
         return {
-            date: ""
+            dateNativeInput: ""
         }
     },
+
     computed: {
         icon() {
             switch (this.type) {
@@ -57,9 +60,9 @@ export default Vue.component('DatePicker', {
 
         dateHasValue() {
             return !(
-                this.date == undefined || 
-                this.date == "" || 
-                this.date == "temp-value"
+                this.dateNativeInput == undefined || 
+                this.dateNativeInput == "" || 
+                this.dateNativeInput == "temp-value"
             );
         },
 
@@ -69,13 +72,13 @@ export default Vue.component('DatePicker', {
     },
     methods: {
         handleDateChange(event) {
-            this.date = event.target.value;
+            this.dateNativeInput = event.target.value;
 
-            this.$emit('input', this.date)
+            this.$emit('input', this.dateNativeInput)
         },
 
         handleTimeKey() {
-            this.date = "half-value";
+            this.dateNativeInput = "half-value";
         },
 
         handleTimeChange(event) {
@@ -83,16 +86,25 @@ export default Vue.component('DatePicker', {
         },
 
         handleTimeFocus() {
-            if (this.date === '') {
-                this.date = 'temp-value';
+            if (this.dateNativeInput === '') {
+                this.dateNativeInput = 'temp-value';
             }
         },
 
         handleTimeBlur() {
-            if (this.date === 'temp-value') {
-                this.date = '';
+            if (this.dateNativeInput === 'temp-value') {
+                this.dateNativeInput = '';
             }
         }
     },
+
+    watch: {
+        value(val) {
+            if (val === "") {
+                this.dateNativeInput = "";
+            }
+        }
+    },
+
     template
 });
