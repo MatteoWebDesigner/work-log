@@ -1,4 +1,5 @@
-import databaseConnection from "./services/database.js";
+import "./services/database.js";
+import "./services/install.js";
 import App from "./components/App/App.js";
 import store from "./store/index.js";
 
@@ -12,8 +13,4 @@ let vm = new Vue({
 
 window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js');
-});
-
-window.addEventListener("beforeinstallprompt", function(event) { 
-    event.prompt();
 });

@@ -1,3 +1,4 @@
+import install from "/services/install.js";
 import datePicker from "../DatePicker/DatePicker.js";
 
 let template = `
@@ -42,6 +43,14 @@ let template = `
             </ul>
 
             <p v-if="!records.length">No items saved</p>
+
+            <mdc-button 
+                raised 
+                v-if="isInstallReady"
+                @click="install"
+            >
+                Install web app
+            </mdc-button>
         </main>
 
     </mdc-layout-app>
@@ -66,13 +75,17 @@ export default Vue.component('App', {
             records: 'getRecordsCollection'
         }),
 
+        isInstallReady() {
+            return this.$store.state.isInstallAppReady;
+        },
+
         isFormValid() {
             return (
                 this.timeStart !== "" &&
                 this.timeEnd !== "" &&
                 this.label !== ""
             )
-        }  
+        }
     },
     mounted() {
         this.retrieveSavedRecords();
@@ -83,6 +96,10 @@ export default Vue.component('App', {
             addRecord: 'addRecord',
             deleteRecord: 'deleteRecord'
         }),
+
+        install() {
+            install.openPrompt();
+        },
 
         onSubmit() {
             if (!this.isFormValid) {

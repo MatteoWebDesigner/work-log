@@ -4,11 +4,20 @@ let recordIDIncrement = 1;
 
 export default {
     state: {
+        isInstallAppReady: false,
         retrievedRecords: false,
         recordsOrder: [],
         records: {}
     },
     mutations: {
+        ["SET_INSTALL_READY"](state) {
+            state.isInstallAppReady = true;
+        },
+
+        ["SET_INSTALL_NOT_READY"](state) {
+            state.isInstallAppReady = false;
+        },
+
         ["ADD_NEW_RECORD"](state, { 
             date, 
             timeStart, 
@@ -51,6 +60,14 @@ export default {
         }
     },
     actions: {
+        setInstallReady({ commit }) {
+            commit('SET_INSTALL_READY');
+        },
+
+        setInstallNotReady({ commit }) {
+            commit('SET_INSTALL_NOT_READY');
+        },
+
         addRecord({ state, commit }, newRecordData) {
 
             if (!state.retrievedRecords) {
