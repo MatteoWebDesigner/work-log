@@ -48,7 +48,7 @@ export default {
             });
 
             if (state.recordsOrder.length) {
-                recordIDIncrement = Math.max(...state.recordsOrder);
+                recordIDIncrement = Math.max(...state.recordsOrder) + 1;
             }
             
             state.retrievedRecords = true;

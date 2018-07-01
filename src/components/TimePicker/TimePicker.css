@@ -1,0 +1,52 @@
+.TimePicker {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.TimePicker_native-input {
+    position: absolute;
+    width: 100%;
+    bottom: 3px;
+    z-index: 1;
+
+    padding-top: 20px;
+    box-sizing: border-box;
+
+    font-size: 1rem;
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+
+    background: transparent;
+    opacity: 0;
+    border: 0;
+    outline: none;
+
+    -webkit-appearance: none;
+    
+    transition: opacity .3s ease-in;
+}
+
+.TimePicker_native-input::-webkit-calendar-picker-indicator {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+.TimePicker_native-input::-webkit-clear-button,
+.TimePicker_native-input::-webkit-inner-spin-button {
+    width: 0;
+    -webkit-appearance: none;
+}
+
+.TimePicker_native-input:focus {
+    opacity: 1;
+}
+
+.TimePicker.has-value .TimePicker_native-input {
+    opacity: 1;
+}
+
+.TimePicker .mdc-text-field__input {
+    color: transparent !important;
+}

@@ -4,7 +4,7 @@
     flex-direction: column;
 }
 
-.DatePicker_native-input-date {
+.DatePicker_native-input {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -12,46 +12,14 @@
     z-index: 1;
 }
 
-.DatePicker_native-input-date::-webkit-calendar-picker-indicator {
+.DatePicker_native-input::-webkit-calendar-picker-indicator {
     width: 100%;
+    height: 100%;
+    padding: 0;
 }
 
-
-.DatePicker_native-input-time {
-    position: absolute;
-    width: 100%;
-    bottom: 3px;
-    z-index: 1;
-
-    padding-top: 20px;
-    box-sizing: border-box;
-
-    font-size: 1rem;
-    font-family: Roboto,sans-serif;
-    font-weight: 400;
-
-    background: transparent;
-    opacity: 0;
-    border: 0;
-    outline: none;
-
+.DatePicker_native-input::-webkit-clear-button,
+.DatePicker_native-input::-webkit-inner-spin-button {
+    width: 0;
     -webkit-appearance: none;
-    
-    transition: opacity .3s ease-in;
-}
-
-.DatePicker_native-input-time:focus {
-    opacity: 1;
-}
-
-.DatePicker_native-input-time::-webkit-clear-button {
-    display: none;
-}
-
-.DatePicker.has-value .DatePicker_native-input-time {
-    opacity: 1;
-}
-
-.DatePicker.is-time .mdc-text-field__input {
-    color: transparent !important;
 }

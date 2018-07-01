@@ -1,5 +1,6 @@
 import install from "/services/install.js";
 import datePicker from "../DatePicker/DatePicker.js";
+import timePicker from "../TimePicker/TimePicker.js";
 
 let template = `
     <mdc-layout-app>
@@ -12,11 +13,11 @@ let template = `
             <h2 class="App_title">Add a record</h2>
             
             <form class="App_form" @submit.prevent="" novalidate>
-                <date-picker v-model="date" :value="date" type="date" label="date"/>
+                <date-picker v-model="date" :value="date" label="date"/>
 
-                <date-picker v-model="timeStart" :value="timeStart" type="time" label="time start"/>
+                <time-picker v-model="timeStart" :value="timeStart" type="time" label="time start"/>
 
-                <date-picker v-model="timeEnd" :value="timeEnd" type="time" label="time end"/>
+                <time-picker v-model="timeEnd" :value="timeEnd" type="time" label="time end"/>
 
                 <mdc-textfield v-model="label" label="label" />
 
@@ -78,7 +79,8 @@ const { mapActions, mapGetters } = Vuex;
 
 export default Vue.component('App', {
     components: {
-        datePicker
+        datePicker,
+        timePicker
     },
     data() {
         return {

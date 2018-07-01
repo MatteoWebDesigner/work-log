@@ -10,7 +10,7 @@
   },
   "scripts": {
     "postinstall": "npm run build",
-    "dev": "npm run build && npm run serve",
+    "start": "npm run build && npm run serve",
     "serve": "PORT=8080 node server.js",
     "build": "cp -R src/ dist/"
   },
