@@ -9,32 +9,37 @@ export default Vue.component('DatePicker', {
     data() {
         return {
             isAndroid: userAgent.isAndroid,
-            dateNativeInput: ""
+            dateNativeInput: "",
+            hasValue: false,
+            isFocused: false
         }
     },
 
     computed: {
-        dateHasValue() {
-            return !(
-                this.dateNativeInput == undefined || 
-                this.dateNativeInput == "" || 
-                this.dateNativeInput == "temp-value"
-            );
+        isActive() {
+            return this.hasValue || this.isFocused;
         }
     },
+
     methods: {
         handleDateChange(event) {
             this.dateNativeInput = event.target.value;
 
             this.$emit('input', this.dateNativeInput)
+        },
+
+        handleInputFocus() {
+            this.isFocused = true;
+        },
+
+        handleInputBlur() {
+            this.isFocused = false;
         }
     },
 
     watch: {
         value(val) {
-            if (val === "") {
-                this.dateNativeInput = "";
-            }
+            this.hasValue = val !== "";
         }
     },
 
@@ -42,20 +47,23 @@ export default Vue.component('DatePicker', {
         <div 
             class="DatePicker" 
             :class="{
-                'isAndroid' : isAndroid 
+                'is-active': isActive
             }"
         >
-            <mdc-textfield 
-                v-model="dateNativeInput" 
-                :label="label" 
-                trailing-icon="event"
-            />
+            <label class="DatePicker_label" for="test">{{label}}</label>
 
             <input 
+                id="test"
                 type="date" 
-                class="DatePicker_native-input" 
+                class="DatePicker_input" 
+                @focus="handleInputFocus"
+                @blur="handleInputBlur"
                 @change="handleDateChange"
             />
+
+            <mdc-icon icon="event" class="DatePicker_icon"></mdc-icon>
+
+            <div class="DatePicker_line"></div>
         </div>
     `
 });

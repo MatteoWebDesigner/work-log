@@ -15,16 +15,6 @@ export default Vue.component('DatePicker', {
     },
 
     computed: {
-        
-        icon() {
-            switch (this.type) {
-                case "time":
-                    return "access_time";
-                break;
-                default:
-                    return "event";
-            }
-        },
 
         dateHasValue() {
             return !(
@@ -32,10 +22,6 @@ export default Vue.component('DatePicker', {
                 this.dateNativeInput == "" || 
                 this.dateNativeInput == "temp-value"
             );
-        },
-
-        timeHasValue() {
-            return this.type === 'time' && this.dateHasValue;
         }
     },
     methods: {
@@ -85,13 +71,13 @@ export default Vue.component('DatePicker', {
         <mdc-textfield 
             v-model="dateNativeInput" 
             :label="label" 
-            :trailing-icon="icon"
+            trailing-icon="access_time"
         />
 
         <input 
+            ref="nativeInput"
             type="time" 
             class="TimePicker_native-input"
-            ref="time"
             @focus="handleTimeFocus" 
             @blur="handleTimeBlur"
             @change="handleTimeChange"

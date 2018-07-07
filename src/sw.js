@@ -4,7 +4,7 @@ workbox.setConfig({ debug: false });
 
 workbox.routing.registerRoute(
     new RegExp('/.*'),
-    workbox.strategies.staleWhileRevalidate({
+    workbox.strategies.networkFirst({
       cacheName: 'cache',
     })
 );

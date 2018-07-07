@@ -4,22 +4,69 @@
     flex-direction: column;
 }
 
-.DatePicker_native-input {
-    width: 100%;
-    height: 100%;
-    position: absolute;
+.DatePicker_input {
+    height: 30px;
+    padding-top: 20px;
+    padding-right: 48px;
+    border: 0;
+    color: rgba(0,0,0,0);
     opacity: 0;
+    -webkit-padding-start: 0;
+
+    transition: opacity .3s .15s ease-out;
+}
+
+.DatePicker_input:focus {
+    outline: none;
+}
+
+.DatePicker.is-active .DatePicker_input {
+    color: rgba(0,0,0,.87);
+    opacity: 1;
+}
+
+.DatePicker_label {
+    position: absolute;
+    left: 0;
+    bottom: 8px;
+    color: rgba(0,0,0,.6);
+    transition: transform .15s cubic-bezier(.4,0,.2,1);
+    transform-origin: left top;
     z-index: 1;
 }
 
-.DatePicker_native-input::-webkit-calendar-picker-indicator {
-    width: 100%;
-    height: 100%;
-    padding: 0;
+.DatePicker.is-active .DatePicker_label {
+    transform: translateY(-100%) scale(.75);
+    color: var(--mdc-theme-primary, #6200ee);
 }
 
-.DatePicker_native-input::-webkit-clear-button,
-.DatePicker_native-input::-webkit-inner-spin-button {
-    width: 0;
-    -webkit-appearance: none;
+.DatePicker_icon {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    color: rgba(0,0,0,.54);
+}
+
+.DatePicker_line {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0,0,0,.42);
+
+    transition: background-color .6s ease-out, transform .6s ease-out;
+}
+
+.DatePicker.is-active .DatePicker_line {
+    transform: scaleY(1.2);
+    background-color: var(--mdc-theme-primary, #6200ee);
+}
+
+@keyframes DatePicker {
+    0% {
+
+    }
+
+
 }
