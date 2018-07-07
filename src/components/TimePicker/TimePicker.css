@@ -4,49 +4,70 @@
     flex-direction: column;
 }
 
-.TimePicker_native-input {
-    position: absolute;
-    width: 100%;
-    bottom: 3px;
-    z-index: 1;
-
+.TimePicker_input {
+    height: 30px;
     padding-top: 20px;
-    box-sizing: border-box;
-
-    font-size: 1rem;
-    font-family: Roboto, sans-serif;
-    font-weight: 400;
-
+    padding-right: 48px;
+    border: 0;
+    color: rgba(0,0,0,0);
     background: transparent;
     opacity: 0;
-    border: 0;
+    -webkit-padding-start: 0;
+
+    transition: opacity .3s .15s ease-out;
+}
+
+.TimePicker_input:focus {
     outline: none;
-
-    -webkit-appearance: none;
-    
-    transition: opacity .3s ease-in;
 }
 
-.TimePicker_native-input::-webkit-calendar-picker-indicator {
+.TimePicker.is-active .TimePicker_input {
+    color: rgba(0,0,0,.87);
+    opacity: 1;
+}
+
+.TimePicker_label {
+    position: absolute;
+    left: 0;
+    bottom: 8px;
+    color: rgba(0,0,0,.6);
+    transition: transform .15s cubic-bezier(.4,0,.2,1);
+    transform-origin: left top;
+    z-index: 1;
+}
+
+.TimePicker.is-active .TimePicker_label {
+    transform: translateY(-100%) scale(.75);
+    color: var(--mdc-theme-primary, #6200ee);
+}
+
+.TimePicker_icon {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    color: rgba(0,0,0,.54);
+}
+
+.TimePicker_line {
+    position: absolute;
+    bottom: 0;
+    right: 0;
     width: 100%;
-    height: 100%;
-    padding: 0;
+    height: 1px;
+    background-color: rgba(0,0,0,.42);
+
+    transition: background-color .6s ease-out, transform .6s ease-out;
 }
 
-.TimePicker_native-input::-webkit-clear-button,
-.TimePicker_native-input::-webkit-inner-spin-button {
-    width: 0;
-    -webkit-appearance: none;
+.TimePicker.is-active .TimePicker_line {
+    transform: scaleY(1.2);
+    background-color: var(--mdc-theme-primary, #6200ee);
 }
 
-.TimePicker_native-input:focus {
-    opacity: 1;
-}
+@keyframes TimePicker {
+    0% {
 
-.TimePicker.has-value .TimePicker_native-input {
-    opacity: 1;
-}
+    }
 
-.TimePicker .mdc-text-field__input {
-    color: transparent !important;
+
 }

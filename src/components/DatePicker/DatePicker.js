@@ -9,7 +9,6 @@ export default Vue.component('DatePicker', {
     data() {
         return {
             isAndroid: userAgent.isAndroid,
-            dateNativeInput: "",
             hasValue: false,
             isFocused: false
         }

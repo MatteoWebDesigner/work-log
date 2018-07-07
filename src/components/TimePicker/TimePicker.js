@@ -1,8 +1,7 @@
 import userAgent from "/services/userAgent.js";
 
-export default Vue.component('DatePicker', {
+export default Vue.component('TimePicker', {
     props: {
-        type: { default: "date" },
         value: { default: "" },
         label: {}
     },
@@ -10,20 +9,17 @@ export default Vue.component('DatePicker', {
     data() {
         return {
             isAndroid: userAgent.isAndroid,
-            dateNativeInput: ""
+            hasValue: false,
+            isFocused: false
         }
     },
 
     computed: {
-
-        dateHasValue() {
-            return !(
-                this.dateNativeInput == undefined || 
-                this.dateNativeInput == "" || 
-                this.dateNativeInput == "temp-value"
-            );
+        isActive() {
+            return this.hasValue || this.isFocused;
         }
     },
+
     methods: {
         handleDateChange(event) {
             this.dateNativeInput = event.target.value;
@@ -31,57 +27,42 @@ export default Vue.component('DatePicker', {
             this.$emit('input', this.dateNativeInput)
         },
 
-        handleTimeKey() {
-            this.dateNativeInput = "half-value";
+        handleInputFocus() {
+            this.isFocused = true;
         },
 
-        handleTimeChange(event) {
-            this.handleDateChange(event);
-        },
-
-        handleTimeFocus() {
-            if (this.dateNativeInput === '') {
-                this.dateNativeInput = 'temp-value';
-            }
-        },
-
-        handleTimeBlur() {
-            if (this.dateNativeInput === 'temp-value') {
-                this.dateNativeInput = '';
-            }
+        handleInputBlur() {
+            this.isFocused = false;
         }
     },
 
     watch: {
         value(val) {
-            if (val === "") {
-                this.dateNativeInput = "";
-            }
+            this.hasValue = val !== "";
         }
     },
 
     template: `
-    <div 
-        class="TimePicker" 
-        :class="{ 
-            'has-value' : dateHasValue,
-            'isAndroid' : isAndroid 
-        }"
-    >
-        <mdc-textfield 
-            v-model="dateNativeInput" 
-            :label="label" 
-            trailing-icon="access_time"
-        />
+        <div 
+            class="TimePicker" 
+            :class="{
+                'is-active': isActive
+            }"
+        >
+            <label class="TimePicker_label" for="test">{{label}}</label>
 
-        <input 
-            ref="nativeInput"
-            type="time" 
-            class="TimePicker_native-input"
-            @focus="handleTimeFocus" 
-            @blur="handleTimeBlur"
-            @change="handleTimeChange"
-            @keyup="handleTimeKey"
-        />
-    </div>`
+            <input 
+                id="test"
+                type="time" 
+                class="TimePicker_input" 
+                @focus="handleInputFocus"
+                @blur="handleInputBlur"
+                @change="handleDateChange"
+            />
+
+            <mdc-icon icon="access_time" class="TimePicker_icon"></mdc-icon>
+
+            <div class="TimePicker_line"></div>
+        </div>
+    `
 });
