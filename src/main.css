@@ -1,6 +1,7 @@
 @import url("./components/App/App.css");
 @import url("./components/DatePicker/DatePicker.css");
 @import url("./components/TimePicker/TimePicker.css");
+@import url("./components/TimerLog/TimerLog.css");
 
 :root {
     --mdc-theme-primary: #f44336 !important;
