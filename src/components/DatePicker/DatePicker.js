@@ -16,7 +16,10 @@ export default Vue.component('DatePicker', {
 
     computed: {
         isActive() {
-            return this.hasValue || this.isFocused;
+            return this.hasValue;
+        },
+        isFocus() {
+            return this.isFocused;
         }
     },
 
@@ -46,7 +49,8 @@ export default Vue.component('DatePicker', {
         <div 
             class="DatePicker" 
             :class="{
-                'is-active': isActive
+                'is-active': isActive,
+                'is-focus': isFocus
             }"
         >
             <label class="DatePicker_label" for="test">{{label}}</label>
@@ -55,6 +59,7 @@ export default Vue.component('DatePicker', {
                 id="test"
                 type="date" 
                 class="DatePicker_input" 
+                :value="value"
                 @focus="handleInputFocus"
                 @blur="handleInputBlur"
                 @change="handleDateChange"

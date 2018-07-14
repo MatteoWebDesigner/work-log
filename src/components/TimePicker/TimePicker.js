@@ -55,6 +55,7 @@ export default Vue.component('TimePicker', {
                 id="test"
                 type="time" 
                 class="TimePicker_input" 
+                :value="value"
                 @focus="handleInputFocus"
                 @blur="handleInputBlur"
                 @change="handleDateChange"

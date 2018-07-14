@@ -52,6 +52,38 @@ function addRecord({ date, timeStart, timeEnd, label }) {
     });
 }
 
+function editRecord({ id, date, timeStart, timeEnd, label }) {
+    let 
+        resolve,
+        promise = new Promise((promiseResolve) => {
+            resolve = promiseResolve;
+        });
+
+    database.then((connection) => {
+        let transaction = connection.transaction(["records"], "readwrite");
+        let recordsObjectStore = transaction.objectStore("records");
+        let query = recordsObjectStore.openCursor();
+        let payload = { id, date, timeStart, timeEnd, label };
+        
+        query.onsuccess = function(event) {
+            let cursor = event.target.result;
+
+            if (cursor) {
+                if (cursor.key === payload.id) {
+                    cursor.update(payload);
+
+                    resolve(payload);
+                    return;
+                }
+
+                cursor.continue();
+            }
+        };
+    });
+
+    return promise;
+}
+
 function deleteRecord(id) {
     return database.then((connection) => {
         
@@ -60,7 +92,6 @@ function deleteRecord(id) {
         let recordsObjectStore = transaction.objectStore("records");
 
         recordsObjectStore.delete(id);
-
     });
 }
 
@@ -95,6 +126,7 @@ function getRecords() {
 export default { 
     database,
     addRecord, 
+    editRecord,
     deleteRecord,
     getRecords 
 };

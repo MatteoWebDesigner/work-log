@@ -30,6 +30,18 @@ export default {
             recordIDIncrement += 1;
         },
 
+        ["EDIT_RECORD"](state, { 
+            id,
+            date, 
+            timeStart, 
+            timeEnd, 
+            label 
+        }) {
+            Vue.set(state.records, id, { id, date, timeStart, timeEnd, label });
+
+            recordIDIncrement += 1;
+        },
+
         ["DELETE_RECORD"](state, id) {
             Vue.delete( state.records, id )
             state.recordsOrder = state.recordsOrder.filter((recordID) => recordID !== id);
@@ -57,6 +69,10 @@ export default {
     getters: {
         getRecordsCollection(state) {
             return state.recordsOrder.map((recordID) => state.records[recordID]);
+        },
+
+        getRecordById(state) {
+            return (id) => state.records[id];
         }
     },
     actions: {
@@ -81,6 +97,14 @@ export default {
                 });
         },
 
+        editRecord({ commit }, editRecordData) {            
+            return database
+                .editRecord(editRecordData)
+                .then(() => {
+                    commit('EDIT_RECORD', editRecordData);
+                });
+        },
+
         deleteRecord({ commit }, id) {            
             return database
                 .deleteRecord(id)
@@ -89,7 +113,7 @@ export default {
                 });
         },
 
-        retrieveSavedRecords({ state, commit }) {
+        retrieveSavedRecords({ commit }) {
 
             return database.getRecords()
                 .then((records) => {

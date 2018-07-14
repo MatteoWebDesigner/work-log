@@ -9,7 +9,7 @@
     padding-top: 20px;
     padding-right: 48px;
     border: 0;
-    color: rgba(0,0,0,0);
+    color: rgba(0,0,0,.87);
     background: transparent;
     opacity: 0;
     -webkit-padding-start: 0;
@@ -21,8 +21,8 @@
     outline: none;
 }
 
+.TimePicker.is-focus .TimePicker_input,
 .TimePicker.is-active .TimePicker_input {
-    color: rgba(0,0,0,.87);
     opacity: 1;
 }
 
@@ -31,13 +31,18 @@
     left: 0;
     bottom: 8px;
     color: rgba(0,0,0,.6);
-    transition: transform .15s cubic-bezier(.4,0,.2,1);
     transform-origin: left top;
     z-index: 1;
+
+    transition: color .15s ease-out, transform .15s cubic-bezier(.4,0,.2,1);
 }
 
-.TimePicker.is-active .TimePicker_label {
+.TimePicker.is-active .TimePicker_label,
+.TimePicker.is-focus .TimePicker_label {
     transform: translateY(-100%) scale(.75);
+}
+
+.TimePicker.is-focus .TimePicker_label {
     color: var(--mdc-theme-primary, #6200ee);
 }
 
@@ -59,15 +64,7 @@
     transition: background-color .6s ease-out, transform .6s ease-out;
 }
 
-.TimePicker.is-active .TimePicker_line {
+.TimePicker.is-focus .TimePicker_line {
     transform: scaleY(1.2);
     background-color: var(--mdc-theme-primary, #6200ee);
-}
-
-@keyframes TimePicker {
-    0% {
-
-    }
-
-
 }

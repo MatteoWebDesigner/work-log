@@ -29,3 +29,7 @@ body {
 .mdc-text-field--with-trailing-icon .mdc-text-field__input {
     padding-left: 0 !important;
 }
+
+.mdc-text-field {
+    margin: 0 !important;
+}
