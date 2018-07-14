@@ -1,4 +1,5 @@
 import install from "/services/install.js";
+import donwloadData from "/services/downloadData.js";
 import timerLog from "../TimerLog/TimerLog.js";
 import datePicker from "../DatePicker/DatePicker.js";
 import timePicker from "../TimePicker/TimePicker.js";
@@ -167,6 +168,16 @@ export default Vue.component('App', {
             this.editRecord(this.edit);
 
             this.resetEditLog();
+        },
+
+        download(event) {
+            event.preventDefault();
+            
+            donwloadData()
+                .then((url) => {
+                    this.$refs.download.href = url;
+                    this.$refs.download.click();
+                });
         }
     },
     template: `
@@ -219,6 +230,13 @@ export default Vue.component('App', {
             </template>
 
             <h2 class="App_title">Records</h2>
+
+            <a download="data.json" target="_blank" ref="download" class="App_native-download"></a>
+
+            <span @click="download">
+                <mdc-icon class="material-icons">arrow_downward</mdc-icon> 
+                download
+            </span>
 
             <ul class="App_list">
                 <li v-for="record in records">

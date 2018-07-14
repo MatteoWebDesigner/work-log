@@ -61,3 +61,7 @@
     display: grid;
     grid-gap: 15px;
 }
+
+.App_native-download {
+    display: none;
+}
